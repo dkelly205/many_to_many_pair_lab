@@ -4,6 +4,7 @@ import db.HibernateUtil;
 import org.hibernate.Criteria;
 
 import javax.persistence.*;
+import java.util.GregorianCalendar;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -18,14 +19,18 @@ public class Course {
     private List<Student> students;
     private List<Lesson> lessons;
     private Set<Instructor> instructors;
+    private GregorianCalendar startDate;
+    private GregorianCalendar endDate;
 
 
     public Course() {
     }
 
-    public Course(String title, String level) {
+    public Course(String title, String level, GregorianCalendar startDate, GregorianCalendar endDate) {
         this.title = title;
         this.level = level;
+        this.startDate = startDate;
+        this.endDate = endDate;
         this.instructors = new HashSet<Instructor>();
     }
 
@@ -84,5 +89,23 @@ public class Course {
 
     public void setInstructors(Set<Instructor> instructors) {
         this.instructors = instructors;
+    }
+
+    @Column(name="start_date")
+    public GregorianCalendar getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(GregorianCalendar startDate) {
+        this.startDate = startDate;
+    }
+
+    @Column(name="end_date")
+    public GregorianCalendar getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(GregorianCalendar endDate) {
+        this.endDate = endDate;
     }
 }

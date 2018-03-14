@@ -15,15 +15,17 @@ public class Lesson {
     private String title;
     private int classroomNumber;
     private Course course;
+    private Instructor instructor;
     private Set<Student> students;
 
     public Lesson() {
     }
 
-    public Lesson(String title, int classroomNumber, Course course) {
+    public Lesson(String title, int classroomNumber, Course course, Instructor instructor) {
         this.title = title;
         this.classroomNumber = classroomNumber;
         this.course = course;
+        this.instructor = instructor;
         this.students = new HashSet<Student>();
     }
 
@@ -66,7 +68,7 @@ public class Lesson {
         this.course = course;
     }
 
-    @ManyToMany(mappedBy="lessons")
+    @ManyToMany(mappedBy="lessons", fetch = FetchType.EAGER)
     public Set<Student> getStudents() {
         return students;
     }
@@ -77,5 +79,15 @@ public class Lesson {
 
     public void addStudent(Student student) {
         students.add(student);
+    }
+
+    @ManyToOne
+    @JoinColumn(name="instructor_id", nullable = false)
+    public Instructor getInstructor() {
+        return instructor;
+    }
+
+    public void setInstructor(Instructor instructor) {
+        this.instructor = instructor;
     }
 }
